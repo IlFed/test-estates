@@ -169,10 +169,4 @@ th {
 .highlight-index {
   background-color: rgb(213, 222, 243);
 }
-
-.highlight {
-  background-color: yellow !important;
-  font-weight: bold !important;
-  color: red !important;
-}
 </style>

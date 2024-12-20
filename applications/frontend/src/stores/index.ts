@@ -1,1 +1,0 @@
-export { useEstateStore } from './estatesStore';
