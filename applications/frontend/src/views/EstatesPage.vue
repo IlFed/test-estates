@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref, type Ref, computed } from 'vue';
 import { useEstates } from '@/composables';
-import { type Estate } from '@/types';
-
-interface EstateQuery {
-  search: string;
-  type?: string;
-}
+import FilterPanel from '@/components/FilterPanel.vue';
+import EstateTable from '@/components/EstateTable.vue';
+import { type Estate, type EstateQuery, type Header } from '@/types';
 
 const { error, estates, loadEstates, loading } = useEstates() as {
   error: Ref<string | null>;
@@ -15,7 +12,7 @@ const { error, estates, loadEstates, loading } = useEstates() as {
   loading: Ref<boolean>;
 };
 
-const headers = [
+const header: Header = [
   { key: 'address', label: 'Адрес' },
   { key: 'city', label: 'Город' },
   { key: 'type', label: 'Тип' },
@@ -47,20 +44,6 @@ const clearFilters = async () => {
   await loadFilteredEstates();
 };
 
-const searchByAddress = async () => {
-  await loadFilteredEstates();
-};
-
-const highlightText = (text: string, search: string) => {
-  if (!text || !search) return text;
-  const regex = new RegExp(`(${search})`, 'gi');
-
-  return text.replace(
-    regex,
-    '<span style="background-color: yellow">$1</span>'
-  );
-};
-
 onMounted(async () => {
   await loadFilteredEstates();
   if (error.value) {
@@ -73,100 +56,40 @@ onMounted(async () => {
   <div class="container">
     <div class="panel">
       <h1>Список объектов</h1>
-      <div class="table_management">
-        <input
-          type="text"
-          placeholder="Поиск по адресу"
-          v-model="searchQuery"
-          @input="searchByAddress"
-        />
-        <button class="btn primary small" @click="clearFilters">
-          Сбросить все фильтры
-        </button>
-      </div>
+      <FilterPanel
+        class="filter-panel"
+        :searchQuery="searchQuery"
+        @update:searchQuery="
+          (value) => {
+            searchQuery = value;
+            loadFilteredEstates();
+          }
+        "
+        @clearFilters="clearFilters"
+      />
     </div>
     <div v-if="error">{{ error }}</div>
     <div v-else>
       <div v-if="loading">Загрузка...</div>
-      <table v-else>
-        <thead>
-          <tr>
-            <th v-for="(header, index) in headers" :key="index">
-              {{ header.label }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(estate, index) in estates"
-            :key="index"
-            :class="{ 'highlight-index': index % 2 }"
-          >
-            <td v-for="header in headers" :key="header.key">
-              <span v-if="header.key === 'city'" class="row">
-                {{ estate[header.key] }}
-                <button class="small info" @click="filterByCity(estate.city)">
-                  ⚙️
-                </button>
-              </span>
-              <span v-else-if="header.key === 'address'">
-                <span
-                  v-html="highlightText(estate[header.key], searchQuery)"
-                ></span>
-              </span>
-              <span v-else>
-                {{ estate[header.key as keyof Estate] }}
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <EstateTable
+        :header="header"
+        :estates="estates"
+        :searchQuery="searchQuery"
+        @filterByCity="filterByCity"
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  text-align: left;
-}
-
-th {
-  background-color: #f4f4f4;
-}
-.btn {
-  flex-shrink: 0;
-  margin-left: 1rem;
-}
 .container {
   padding: 0 2rem;
 }
-.panel {
+
+.panel,
+.filter-panel {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.table_management {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.highlight-index {
-  background-color: rgb(213, 222, 243);
 }
 </style>
