@@ -1,0 +1,233 @@
+@import './base.css';
+
+#app {
+  margin: 0;
+  padding: 0;
+}
+
+/* Общие стили для всех кнопок */
+button {
+  border: none; /* Без рамки */
+  border-radius: 5px; /* Скругленные углы */
+  font-size: 16px; /* Размер шрифта по умолчанию */
+  cursor: pointer; /* Указатель при наведении */
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease; /* Плавный переход */
+  text-align: center;
+  display: inline-block; /* Не растягивает на 100% */
+  padding: 10px 20px; /* Стандартные отступы для medium кнопки */
+  height: auto; /* Высота зависит от содержимого */
+  width: auto; /* Ширина зависит от содержимого */
+}
+
+/* Размеры кнопок */
+button.small {
+  font-size: 12px; /* Меньший шрифт */
+  padding: 6px 12px; /* Меньшие отступы */
+  height: 30px; /* Установим фиксированную высоту для маленькой кнопки */
+}
+
+button.medium {
+  font-size: 16px; /* Стандартный размер шрифта */
+  padding: 10px 20px; /* Стандартные отступы */
+  height: 40px; /* Установим фиксированную высоту для средней кнопки */
+}
+
+button.large {
+  font-size: 20px; /* Больший шрифт */
+  padding: 14px 30px; /* Большие отступы */
+  height: 50px; /* Установим фиксированную высоту для большой кнопки */
+}
+
+/* Основная кнопка (primary) */
+button.primary {
+  background-color: #007bff; /* Синий фон */
+  color: white; /* Белый текст */
+}
+
+button.primary:hover {
+  background-color: #0056b3; /* Темно-синий фон при наведении */
+}
+
+button.primary:active {
+  transform: scale(0.98); /* Эффект сжатия при клике */
+}
+
+/* Кнопка опасности (danger) */
+button.danger {
+  background-color: #dc3545; /* Красный фон */
+  color: white; /* Белый текст */
+}
+
+button.danger:hover {
+  background-color: #c82333; /* Темно-красный фон при наведении */
+}
+
+button.danger:active {
+  transform: scale(0.98); /* Эффект сжатия при клике */
+}
+
+/* Успешная кнопка (success) */
+button.success {
+  background-color: #28a745; /* Зеленый фон */
+  color: white; /* Белый текст */
+}
+
+button.success:hover {
+  background-color: #218838; /* Темно-зеленый фон при наведении */
+}
+
+button.success:active {
+  transform: scale(0.98); /* Эффект сжатия при клике */
+}
+
+/* Вторичная кнопка (secondary) */
+button.secondary {
+  background-color: #6c757d; /* Серый фон */
+  color: white; /* Белый текст */
+}
+
+button.secondary:hover {
+  background-color: #5a6268; /* Темно-серый фон при наведении */
+}
+
+button.secondary:active {
+  transform: scale(0.98); /* Эффект сжатия при клике */
+}
+
+/* Кнопка с предупредительным стилем (warning) */
+button.warning {
+  background-color: #ffc107; /* Желтый фон */
+  color: black; /* Черный текст */
+}
+
+button.warning:hover {
+  background-color: #e0a800; /* Темно-желтый фон при наведении */
+}
+
+button.warning:active {
+  transform: scale(0.98); /* Эффект сжатия при клике */
+}
+
+/* Кнопка с информационным стилем (info) */
+button.info {
+  background-color: #aac4fb; /* Голубой фон */
+  color: white; /* Белый текст */
+}
+
+button.info:hover {
+  background-color: #93b3f9; /* Темно-голубой фон при наведении */
+}
+
+button.info:active {
+  transform: scale(0.98); /* Эффект сжатия при клике */
+}
+
+/* Общие стили для всех input */
+input {
+  padding: 10px 15px; /* Отступы внутри поля */
+  font-size: 16px; /* Размер шрифта */
+  border: 1px solid #ccc; /* Стандартная граница */
+  border-radius: 5px; /* Скругленные углы */
+  width: 100%; /* Поле занимает 100% ширины контейнера */
+  box-sizing: border-box; /* Учитываем отступы и границы внутри ширины */
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease; /* Плавный переход */
+}
+
+/* Фокусировка input */
+input:focus {
+  border-color: #007bff; /* Синий цвет границы при фокусе */
+  outline: none; /* Убираем стандартный контур фокуса */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Легкое свечение вокруг поля */
+}
+
+/* Стили для error состояния */
+input.error {
+  border-color: #dc3545; /* Красная граница при ошибке */
+  background-color: #f8d7da; /* Светлый красный фон */
+}
+
+input.error:focus {
+  border-color: #c82333; /* Темно-красная граница при фокусе */
+  box-shadow: 0 0 5px rgba(220, 53, 69, 0.5); /* Красное свечение */
+}
+
+/* Стили для success состояния */
+input.success {
+  border-color: #28a745; /* Зеленая граница при успешном вводе */
+  background-color: #d4edda; /* Светлый зеленый фон */
+}
+
+input.success:focus {
+  border-color: #218838; /* Темно-зеленая граница при фокусе */
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.5); /* Зеленое свечение */
+}
+
+/* Для текстовых полей типа "text" */
+input[type='text'] {
+  background-color: #fff; /* Белый фон */
+}
+
+/* Для поля пароля */
+input[type='password'] {
+  background-color: #fff; /* Белый фон */
+}
+
+/* Для поля email */
+input[type='email'] {
+  background-color: #fff; /* Белый фон */
+}
+
+/* Для поля для чисел */
+input[type='number'] {
+  background-color: #fff; /* Белый фон */
+}
+
+/* Для кнопок */
+input[type='submit'],
+input[type='button'] {
+  background-color: #007bff; /* Синий фон */
+  color: white; /* Белый текст */
+  border: none; /* Без рамки */
+  padding: 10px 20px; /* Отступы */
+  border-radius: 5px; /* Скругленные углы */
+  cursor: pointer; /* Указатель при наведении */
+  font-size: 16px; /* Размер шрифта */
+  transition: background-color 0.3s ease; /* Плавный переход */
+}
+
+input[type='submit']:hover,
+input[type='button']:hover {
+  background-color: #0056b3; /* Темно-синий фон при наведении */
+}
+
+/* Для чекбоксов */
+input[type='checkbox'] {
+  margin: 0; /* Убираем отступы */
+}
+
+/* Для радиокнопок */
+input[type='radio'] {
+  margin: 0; /* Убираем отступы */
+}
+
+/* Для файловых полей */
+input[type='file'] {
+  background-color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Пример с placeholder */
+input::placeholder {
+  color: #aaa; /* Цвет текста подсказки */
+  font-style: italic; /* Курсив */
+}
+
+input:focus::placeholder {
+  color: #007bff; /* Цвет текста подсказки при фокусе */
+}

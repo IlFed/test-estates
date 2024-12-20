@@ -1,0 +1,1 @@
+export { getEstates } from './estateApi';
